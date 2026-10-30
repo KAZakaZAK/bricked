@@ -68,6 +68,9 @@ h1, h2, p, dl, dt, dd { font-weight: inherit; }
 
 /* ---------- Panel 1: State Deck ---------- */
 .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   flex: 1;
   min-height: 280px;
   display: flex;
@@ -77,6 +80,18 @@ h1, h2, p, dl, dt, dd { font-weight: inherit; }
   padding: var(--s24);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
+  background: var(--surface-panel);
+}
+.hero > :not(.fx) { position: relative; z-index: 1; }
+
+/* Shader fills (see shaders.js): moving gradient at 24%, moire at 4% */
+.fx { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; z-index: 0; }
+.fx canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.fx-gradient { opacity: 0.24; }
+.fx-moire { opacity: 0.04; }
+
+/* Static fallback when WebGL2 is unavailable */
+.hero.no-gl {
   background:
     radial-gradient(120% 70% at 85% 0%, rgba(232, 184, 75, 0.16), transparent 60%),
     linear-gradient(180deg, transparent 45%, rgba(232, 71, 26, 0.07) 100%),

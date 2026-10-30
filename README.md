@@ -34,8 +34,13 @@ Append these to your site URL. iOS opens links in Safari, not the installed Home
 ## Files
 
 - `index.html`, `style.css`, `app.js`: the app
+- `shaders.js`: the moving gradient and Moire fills
 - `manifest.webmanifest`, `sw.js`: install and offline support
 - `icons/`: Home Screen icons
 - `.nojekyll`: serve files as is on GitHub Pages
 
 Ubuntu is loaded from Google Fonts, with a system font fallback when offline.
+
+## Shader fills
+
+`shaders.js` is a WebGL2 port of the two Figma shader fills on the state deck: the moving gradient (24% opacity, animated, capped at about 30 fps and paused when the app is hidden) and the Moire pattern (4% opacity, static). Settings are copied from the Figma file. If WebGL2 is unavailable, or the viewer prefers reduced motion, it falls back to a static gradient.
