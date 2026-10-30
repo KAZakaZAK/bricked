@@ -4,16 +4,20 @@
   const KEY = 'brick.v1';
   const EMERGENCY_SECONDS = 60;
   const ARMING_MS = 800;
+  const DURATIONS = [0, 30, 60, 120, 240, 480]; // minutes, 0 = no minimum
 
   const $ = (id) => document.getElementById(id);
   const el = {
     app: $('app'), state: $('state'), hint: $('hint'),
     timerLabel: $('timerLabel'), timerValue: $('timerValue'),
-    minLock: $('minLock'), firewall: $('firewall'),
+    timerBtn: $('timerBtn'), tagId: $('tagId'), firewall: $('firewall'), handleBtn: $('handleBtn'), drawer: $('drawer'),
     cta: $('cta'), note: $('note'), emergency: $('emergency'),
   };
 
-  const defaults = { state: 'unlocked', since: null, until: null, minutes: 0, firewall: true };
+  const defaults = {
+    state: 'unlocked', since: null, until: null, minutes: 0, firewall: true,
+    tagId: '04:A2:3B:6C:19:5E:80', // placeholder, tap it in the app to set your real tag UID
+  };
   let s = load();
   let arming = false;
   let message = '';
@@ -118,8 +122,8 @@
     }[ph];
     el.cta.disabled = ph === 'arming';
 
-    el.minLock.value = String(s.minutes);
-    el.minLock.disabled = s.state === 'bricked' || arming;
+    el.timerBtn.disabled = s.state === 'bricked' || arming;
+    el.tagId.textContent = s.tagId;
     el.firewall.setAttribute('aria-checked', String(s.firewall));
 
     el.note.textContent = message || (s.state === 'bricked'
@@ -147,7 +151,7 @@
         value = fmt((now - (s.since || now)) / 1000);
       }
     } else {
-      label = 'MIN LOCK';
+      label = 'LOCK TIMER';
       value = s.minutes > 0 ? fmt(s.minutes * 60) : '--:--:--';
     }
     el.timerLabel.textContent = label;
@@ -155,9 +159,21 @@
   }
 
   // ---- Events ----
+  el.handleBtn.addEventListener('click', () => el.drawer.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   el.cta.addEventListener('click', tap);
   el.emergency.addEventListener('click', toggleEmergency);
-  el.minLock.addEventListener('change', () => { s.minutes = parseInt(el.minLock.value, 10) || 0; save(); render(); });
+  // Tap the timer while unlocked to cycle the minimum lock time.
+  el.timerBtn.addEventListener('click', () => {
+    if (s.state === 'bricked' || arming) return;
+    const i = DURATIONS.indexOf(s.minutes);
+    s.minutes = DURATIONS[(i + 1) % DURATIONS.length];
+    message = s.minutes > 0 ? `Minimum lock set to ${fmt(s.minutes * 60)}.` : 'No minimum lock.';
+    save(); render();
+  });
+  el.tagId.addEventListener('click', () => {
+    const v = window.prompt('Tag ID (your NFC tag UID)', s.tagId);
+    if (v && v.trim()) { s.tagId = v.trim().toUpperCase(); save(); render(); }
+  });
   el.firewall.addEventListener('click', () => { s.firewall = !s.firewall; save(); render(); });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) { render(); } });
   window.addEventListener('pageshow', render);
