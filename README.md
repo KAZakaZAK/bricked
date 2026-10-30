@@ -15,6 +15,8 @@ After an update, open the app twice, or delete the icon and add it again, to ref
 - One screen: the state deck with shader fills, and the four essentials.
 - UNLOCKED, ARMING and BRICKED states with a live countdown, or time bricked when no minimum lock is set.
 - The state changes only through the shortcut links below. There are no on-screen controls to brick or unlock.
+- While BRICKED, **+30 min** extends the lock by 30 minutes. It only adds time, it never unlocks.
+- The shader fills show only while bricked. Unlocked is a flat surface.
 - Tap the **lock timer** while unlocked to cycle the minimum lock: none, 30 min, 1 h, 2 h, 4 h, 8 h.
 - State is saved on the device. The real lock is your Focus mode and Shortcuts, this app only displays it.
 - Phone, Messages, Maps and Music open the native apps.

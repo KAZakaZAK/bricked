@@ -27,12 +27,14 @@
         <div class="label-row"><span class="dot"></span><span class="caption">PHONE STATE</span></div>
         <div class="state-text">
           <h1 id="state" aria-live="polite">UNLOCKED</h1>
-          <p id="hint">Tap the tag to brick this phone</p>
         </div>
-        <button id="timerBtn" class="timer" type="button" aria-label="Lock timer. Tap to change the minimum lock time.">
-          <span id="timerLabel" class="caption">LOCK TIMER</span>
-          <strong id="timerValue">--:--:--</strong>
-        </button>
+        <div class="timer-block">
+          <button id="timerBtn" class="timer" type="button" aria-label="Lock timer. Tap to change the minimum lock time.">
+            <span id="timerLabel" class="caption">LOCK TIMER</span>
+            <strong id="timerValue">--:--:--</strong>
+          </button>
+          <button id="addTime" class="add-time" type="button" hidden>+30 min</button>
+        </div>
         <p id="zone" class="zone">Get in the pocket</p>
       </section>
 

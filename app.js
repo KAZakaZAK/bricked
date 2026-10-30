@@ -7,7 +7,7 @@
 
   const $ = (id) => document.getElementById(id);
   const el = {
-    app: $('app'), state: $('state'), hint: $('hint'), zone: $('zone'),
+    app: $('app'), state: $('state'), zone: $('zone'), addTime: $('addTime'),
     timerBtn: $('timerBtn'), timerLabel: $('timerLabel'), timerValue: $('timerValue'),
   };
 
@@ -70,12 +70,8 @@
     const ph = arming ? 'arming' : s.state;
     el.app.dataset.state = ph;
     el.state.textContent = { unlocked: 'UNLOCKED', arming: 'ARMING', bricked: 'BRICKED' }[ph];
-    el.hint.textContent = {
-      unlocked: 'Tap the tag to brick this phone',
-      arming: 'Running BRICK protocol',
-      bricked: 'Tap the tag again to unlock',
-    }[ph];
     el.zone.textContent = ph === 'bricked' ? 'You\u2019re in the fuckin\u2019 zone' : 'Get in the pocket';
+    el.addTime.hidden = s.state !== 'bricked';
     el.timerBtn.disabled = s.state === 'bricked' || arming;
     tick();
   }
@@ -104,6 +100,14 @@
   el.timerBtn.addEventListener('click', () => {
     if (s.state === 'bricked' || arming) return;
     s.minutes = DURATIONS[(DURATIONS.indexOf(s.minutes) + 1) % DURATIONS.length];
+    save(); render();
+  });
+
+  // Extend the lock by 30 minutes. Counts from the current end, or from now if it has passed or none was set.
+  el.addTime.addEventListener('click', () => {
+    if (s.state !== 'bricked') return;
+    const now = Date.now();
+    s.until = Math.max(s.until || 0, now) + 30 * 60000;
     save(); render();
   });
 
