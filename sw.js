@@ -1,4 +1,4 @@
-const CACHE = 'brick-v4';
+const CACHE = 'brick-v5';
 const ASSETS = [
   './', 'index.html', 'style.css', 'app.js', 'shaders.js', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png',

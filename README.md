@@ -12,21 +12,18 @@ After an update, open the app twice, or delete the icon and add it again, to ref
 
 ## How it behaves
 
-- First screen: state deck, essentials, grabber. Tap the grabber or scroll to reach NFC configuration.
+- One screen: the state deck with shader fills, and the four essentials.
 - UNLOCKED, ARMING and BRICKED states with a live countdown, or time bricked when no minimum lock is set.
+- The state changes only through the shortcut links below. There are no on-screen controls to brick or unlock.
 - Tap the **lock timer** while unlocked to cycle the minimum lock: none, 30 min, 1 h, 2 h, 4 h, 8 h.
-- Tap the **tag ID** to replace the placeholder with your tag's real UID. Display only.
-- State is saved on the device.
-- The button is a manual toggle. The real lock is your Focus mode and Shortcuts.
-- The FIREWALL switch shows whether your app interceptor is on. It does not control iOS.
+- State is saved on the device. The real lock is your Focus mode and Shortcuts, this app only displays it.
 - Phone, Messages, Maps and Music open the native apps.
-- Emergency unlock waits 60 seconds. Change `EMERGENCY_SECONDS` in `app.js`.
 
 ## Linking it to your NFC shortcut
 
 Add an **Open URLs** action after Set Focus:
 
-- Bricked: `?state=bricked&min=90` (min is optional)
+- Bricked: `?state=bricked&min=90` (min is optional, otherwise it uses the timer setting)
 - Unlocked: `?state=unlocked`
 
 Append these to your site URL. iOS opens links in Safari, not the installed Home Screen app, and the two keep separate saved state. Either allow Safari for this one link or toggle the Home Screen app by hand.

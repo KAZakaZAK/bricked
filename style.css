@@ -34,7 +34,6 @@ html, body {
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
 }
 
 body { display: flex; justify-content: center; }
@@ -42,7 +41,7 @@ body { display: flex; justify-content: center; }
 #app {
   width: 100%;
   max-width: 420px;
-  padding: 0 var(--s16) max(var(--s16), env(safe-area-inset-bottom));
+  padding: 0 var(--s16);
 }
 
 /* First screen matches the 393x852 Figma frame */
@@ -50,6 +49,7 @@ body { display: flex; justify-content: center; }
   min-height: 100vh;
   min-height: 100dvh;
   padding-top: max(var(--s16), env(safe-area-inset-top));
+  padding-bottom: max(var(--s24), env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   gap: var(--s16);
@@ -147,61 +147,6 @@ h1, h2, p, dl, dt, dd { font-weight: inherit; }
 }
 .tile-label { font-size: 12px; line-height: 16px; font-weight: 500; opacity: 0.8; }
 
-/* Grabber */
-.handle-btn {
-  background: none; border: 0; cursor: pointer;
-  padding: var(--s8) 0 var(--s16);
-  display: flex; justify-content: center;
-}
-.handle { width: 36px; height: 4px; border-radius: 2px; background: var(--border-subtle); }
-
-/* ---------- Panel 3: NFC Configuration ---------- */
-.drawer { display: flex; flex-direction: column; gap: var(--s16); padding: var(--s8) 0 var(--s24); }
-.details { display: flex; flex-direction: column; gap: var(--s8); }
-.row { display: flex; justify-content: space-between; align-items: center; min-height: 24px; }
-.row.tall { min-height: 32px; }
-.row dd { font-size: 14px; font-weight: 500; }
-hr { border: 0; height: 1px; background: var(--border-subtle); }
-
-.plain {
-  background: none; border: 0; cursor: pointer;
-  font: inherit; font-size: 14px; font-weight: 500; color: var(--text-ink);
-}
-
-.switch {
-  width: 56px; height: 32px; border-radius: 999px; padding: var(--s8);
-  display: flex; align-items: center; cursor: pointer;
-  background: var(--accent-secondary);
-  border: 1.5px solid var(--border-subtle);
-  transition: background-color .2s ease;
-}
-.switch .knob {
-  width: 16px; height: 16px; border-radius: 50%;
-  background: var(--surface-raised);
-  transition: transform .2s ease;
-}
-.switch[aria-checked="true"] { background: var(--status-active); border-color: var(--status-active); }
-.switch[aria-checked="true"] .knob { transform: translateX(24px); }
-
-.cta {
-  width: 100%; padding: var(--s16); border: 0; border-radius: var(--radius);
-  background: var(--action-cta); color: var(--text-ink);
-  font: inherit; font-size: 14px; font-weight: 500; cursor: pointer;
-  transition: transform .12s ease, opacity .2s ease;
-}
-.cta:active { transform: scale(.98); background: var(--text-ink); color: var(--surface-raised); }
-.cta:disabled { opacity: .5; }
-
-.note { font-size: 14px; line-height: 20px; text-align: center; opacity: .8; min-height: 40px; padding: 0 var(--s8); }
-
-.link {
-  align-self: center; background: none; border: 0; cursor: pointer;
-  font: inherit; font-size: 12px; font-weight: 500; color: var(--text-ink);
-  text-decoration: underline; opacity: .8; padding: 4px;
-}
-.link[hidden] { display: none; }
-
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   * { animation: none !important; transition: none !important; }
 }
