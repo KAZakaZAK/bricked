@@ -7,7 +7,7 @@
 
   const $ = (id) => document.getElementById(id);
   const el = {
-    app: $('app'), state: $('state'), hint: $('hint'),
+    app: $('app'), state: $('state'), hint: $('hint'), zone: $('zone'),
     timerBtn: $('timerBtn'), timerLabel: $('timerLabel'), timerValue: $('timerValue'),
   };
 
@@ -75,6 +75,7 @@
       arming: 'Running BRICK protocol',
       bricked: 'Tap the tag again to unlock',
     }[ph];
+    el.zone.textContent = ph === 'bricked' ? 'You\u2019re in the fuckin\u2019 zone' : 'Get in the pocket';
     el.timerBtn.disabled = s.state === 'bricked' || arming;
     tick();
   }

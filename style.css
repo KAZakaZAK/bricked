@@ -125,6 +125,8 @@ h1, h2, p, dl, dt, dd { font-weight: inherit; }
   font-variant-numeric: tabular-nums;
 }
 
+.zone { margin-top: auto; font-size: 12px; line-height: 16px; font-weight: 500; }
+
 /* ---------- Essentials ---------- */
 .essentials { display: flex; flex-direction: column; gap: var(--s16); }
 .essentials .caption { padding: 0 var(--s16); }
